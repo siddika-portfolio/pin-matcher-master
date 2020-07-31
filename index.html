@@ -12,13 +12,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input id="pin-number" class="form-control" type="text">
+                    <input id="pin-number" class="form-control" type="text" placeholder="Generate Number">
                     <button id="pin-button" class="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input id="screen" class="form-control" type="text">
+                    <input id="screen" class="form-control" type="text" placeholder="4 Digit Number">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
@@ -43,7 +43,7 @@
                             </div>
                             <div>
                                 <button id="submit-option" type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p class="action-left"> <span id="try-option">3</span> try left</p>
                             </div>
                     </div>
                 </div>
@@ -84,20 +84,45 @@
            })
        }
 
-    //    document.getElementById("wrong").style.display = 'none';
-    //      document.getElementById("right").style.display = 'none'; 
+       document.getElementById("right-option").style.display = "none";
+       document.getElementById("wrong-option").style.display = "none";
+ 
+    // submit button event handler
+    document.getElementById("submit-option").addEventListener("click",function(){
+        const pinNumber = document.getElementById("pin-number").value;
+        const screenValue = document.getElementById("screen").value;
+        var rongNumber = 3;
+        if(pinNumber == ""){
+            document.getElementById("wrong-option").style.display = "block"
+            setTimeout(() =>{
+                document.getElementById("wrong-option").style.display ="none"
+            },3000);
+            rongNumber--;
+        }
+       else if(pinNumber == screenValue){
+            document.getElementById("right-option").style.display = "block"
+            setTimeout(() =>{
+                document.getElementById("right-option").style.display ="none"
+            },3000);
+            rongNumber--;
+        }
+        else{
+            document.getElementById("wrong-option").style.display = "block"
+            setTimeout(() =>{
+                document.getElementById("wrong-option").style.display ="none"
+            },3000);
+            rongNumber--;
+        }
+        document.getElementById("screen").value = '';
 
-        document.getElementById('submit-option').addEventListener('click', function(){
-        if (pinNumber.value == screenValue.value){
-            const rightOption = document.getElementById("right-option").innerText;
-            document.getElementById("right-option").style.display = "block";
-           }
-           else{
-            const wrongOption = document.getElementById("wrong-option").innerText;
-            document.getElementById("wrong-option").style.display = "block";
-           }
-       })
-
+        if(rongNumber <= 1){
+            document.getElementById("try-option").innerText = "1"
+        }
+        if(rongNumber <= 2){
+            document.getElementById("try-option").innerText = "2"
+        }
+    })
+    
                                       
     </script>
 </body>
